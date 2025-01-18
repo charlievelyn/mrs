@@ -27,6 +27,9 @@
     <meta name="twitter:description" content="We specialize in transforming spaces through exceptional renovation and interior design services, ensuring quality craftsmanship and customer satisfaction.">
     <!-- <meta name="twitter:image" content="URL_TO_YOUR_IMAGE"> -->
 
+    <!-- Preload -->
+    <script id="preloadScript" src="assets/preload.js" defer></script>
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/lni/lineicons.css">
@@ -87,18 +90,27 @@
             border: 2px solid #ddd;
             border-radius: 8px;
         }
+
         .marquee-container {
+            display: flex; 
+            justify-content: flex-end; /* Align marquee to the right */
             overflow: hidden;
             white-space: nowrap;
-            position: relative;
+            position: right;
+            width: 100%;
+            border: 2px solid #ddd;
             background-color: rgba(255,255,255,0.8);
-            /* border: 2px solid #ddd; */
             padding: 10px 0;
         }
 
-        .marquee {
-            display: flex;
-            animation: scroll 10s linear infinite;
+        .marquee-images {
+            display: inline-flex; /* Display images in a single row */
+            animation: scrollMarquee linear infinite; /* Infinite scrolling animation */
+        }
+
+        .clickable-image {
+            margin-right: 10px; /* Add some spacing between images */
+            cursor: pointer; /* Make images clickable */
         }
 
         .marquee img {
@@ -109,18 +121,18 @@
             cursor: pointer;
         }
 
-        .marquee img:hover {
+        .marquee-images img:hover {
             transform: scale(1.2); /* Enlarge the image */
             filter: brightness(1.2); /* Brighten the image slightly */
         }
 
         /* Stop animation when hovering */
-        .marquee-container:hover .marquee {
+        .marquee-container:hover .marquee-images {
             animation-play-state: paused;
         }
 
         /* Keyframes for marquee scrolling */
-        @keyframes scroll {
+        @keyframes scrollMarquee {
             0% {
                 transform: translateX(100%);
             }
@@ -324,28 +336,8 @@
         <div class="section" id="projects">
             <div class="container">
                 <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="assets/banner/image1.jpg" class="d-block w-100" alt="Project 1">
-                            <div class="carousel-caption">
-                                <h5>Modern Skyscraper</h5>
-                                <p>Redefining urban landscapes.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="assets/banner/image2.jpg" class="d-block w-100" alt="Project 2">
-                            <div class="carousel-caption">
-                                <h5>Luxury Villas</h5>
-                                <p>Creating homes for the future.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="assets/banner/image3.jpg" class="d-block w-100" alt="Project 3">
-                            <div class="carousel-caption">
-                                <h5>Commercial Complex</h5>
-                                <p>Building spaces for growth.</p>
-                            </div>
-                        </div>
+                    <div class="carousel-inner" id="carousel-inner">
+                        <!-- Carousel items will be dynamically added here -->
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -386,7 +378,7 @@
         <h1 style="text-align: center;">Gallery</h1>
 
         <div class="marquee-container">
-            <div class="marquee">
+            <div class="marquee-images">
                 <!-- Images dynamically loaded by JavaScript -->
             </div>
         </div>
@@ -476,8 +468,6 @@
     <div class="contact-boxed" id="contactBox"><h1>Contact Us</h1></div>
 </a>
 
-
-
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -495,37 +485,135 @@
             }
         });
 
-        const images = [
-            {src: "assets/banner/image1.jpg", alt: "Banner Image 1"},
-            {src: "assets/banner/image2.jpg", alt: "Banner Image 2"},
-            {src: "assets/banner/image3.jpg", alt: "Banner Image 3"},
-            {src: "assets/banner/image1.jpg", alt: "Banner Image 1"},
-            {src: "assets/banner/image2.jpg", alt: "Banner Image 2"}
-        ];
-		
-		// Populate the marquee dynamically
-		const marquee = document.querySelector('.marquee');
-		images.forEach(image => {
-			const imgElement = document.createElement('img');
-			imgElement.src = image.src;
-			imgElement.alt = image.alt;
-			imgElement.className = "clickable-image";
-			marquee.appendChild(imgElement);
-		});
-		
-		// Add click event listeners to all images in the marquee
-		const clickableImages = document.querySelectorAll('.clickable-image');
-		const modal = document.getElementById('imageModal');
-		const modalImage = document.getElementById('modalImage');
 
-		clickableImages.forEach(image => {
-			image.addEventListener('click', function () {
-                document.getElementById('imageModalLabel').textContent = this.alt;
-				modalImage.src = this.src; // Set modal image to clicked image source
-				const bootstrapModal = new bootstrap.Modal(modal); // Initialize the Bootstrap modal
-				bootstrapModal.show(); // Show the modal
-			});
-		});
+        async function loadImages() {
+    const preloadScript = document.getElementById("preloadScript");
+    console.log("Waiting for preloadScript to load...");
+
+    // Check if the script is already loaded via cache or if it's not loaded yet
+    if (preloadScript && preloadScript.src && preloadScript.complete) {
+        console.log("preloadScript already loaded!");
+        // Proceed with loading images
+        return loadCarouselImages();
+    }
+
+    await new Promise(resolve => {
+        preloadScript.onload = () => {
+            console.log("preloadScript loaded!");
+            resolve();
+            loadCarouselImages();
+        };
+        preloadScript.onerror = (error) => {
+            console.error("Error loading preloadScript:", error);
+        };
+    });
+
+    // If onload wasn't triggered or script failed, proceed with fallback code
+    if (preloadScript.readyState === 'complete') {
+        console.log("preloadScript already in a ready state.");
+        loadCarouselImages();
+    }
+}
+
+function loadCarouselImages() {
+    alert("test");
+
+    // Carousel Banner
+    const imageCarouselList = getBanner();
+
+    // Get the carousel-inner element
+    const carouselInner = document.getElementById('carousel-inner');
+
+    // Dynamically add carousel items
+    imageCarouselList.forEach((image, index) => {
+        const carouselItem = document.createElement('div');
+        carouselItem.classList.add('carousel-item');
+        if (index === 0) {
+            carouselItem.classList.add('active');
+        }
+
+        const imgElement = document.createElement('img');
+        imgElement.src = image.src;
+        imgElement.classList.add('d-block', 'w-100');
+        imgElement.alt = image.alt;
+
+        const captionElement = document.createElement('div');
+        captionElement.classList.add('carousel-caption');
+        captionElement.innerHTML = `<h5>${image.title}</h5><p>${image.caption}</p>`;
+
+        carouselItem.appendChild(imgElement);
+        carouselItem.appendChild(captionElement);
+        carouselInner.appendChild(carouselItem);
+    });
+}
+
+
+
+        async function addingMarqueGallery(loop = 1) {
+            await loadImages();
+            for (let i = 0; i < loop; i++) {
+                const images = getGallery();
+                
+                // Populate the marquee dynamically
+                const marquee = document.querySelector('.marquee-images');
+                const imagePromises = images.map(image => {
+                    return new Promise(resolve => {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = image.src;
+                        imgElement.alt = image.alt;
+                        imgElement.className = "clickable-image";
+                        imgElement.onload = () => resolve(imgElement);
+                        marquee.appendChild(imgElement);
+                    });
+                });
+
+                await Promise.all(imagePromises);
+            }
+        }
+
+        async function calculateMarqueeWidth() {
+            await addingMarqueGallery(10);
+
+            // Now calculate total width
+            const marqueeContainer = document.querySelector('.marquee-container');
+            const marqueeImages = document.querySelector('.marquee-images');
+            const mImage = document.querySelectorAll('.clickable-image');
+            
+            let totalWidth = 0;
+            mImage.forEach(img => {
+                totalWidth += img.width + parseInt(window.getComputedStyle(img).marginRight || "0");
+            });
+
+            // Set the width of the marquee container to accommodate all images
+            marqueeImages.style.width = totalWidth + 'px';
+            
+            // Add animation for marquee effect
+            marqueeImages.style.animationDuration = totalWidth / 100 + 's'; // Adjust speed dynamically
+
+            // Adding more image
+            await addingMarqueGallery();
+        }
+
+        async function marqueeClickableImage() {
+            await calculateMarqueeWidth();
+            
+            // Add click event listeners to all images in the marquee
+            const clickableImages = document.querySelectorAll('.clickable-image');
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+
+            clickableImages.forEach(image => {
+                image.addEventListener('click', function () {
+                    document.getElementById('imageModalLabel').textContent = this.alt;
+                    modalImage.src = this.src; // Set modal image to clicked image source
+                    const bootstrapModal = new bootstrap.Modal(modal); // Initialize the Bootstrap modal
+                    bootstrapModal.show(); // Show the modal
+                });
+            });
+        }
+
+        marqueeClickableImage();
+
     });
 </script>
 
