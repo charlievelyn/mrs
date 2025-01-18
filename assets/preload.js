@@ -35,4 +35,5 @@ document.addEventListener("DOMContentLoaded", function() {
     window.getGallery = function() {
         return GalleryList;
     };
+	console.log('preload.js is successfully loaded');
 });
