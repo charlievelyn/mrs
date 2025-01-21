@@ -89,6 +89,58 @@
             border: 2px solid #ddd;
             border-radius: 8px;
         }
+/* General Button Styling */
+button {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Make the button take full width */
+}
+
+/* Wrapper styling to ensure 50% width buttons */
+.d-flex {
+    display: flex;
+    justify-content: space-between; /* Ensure space between buttons */
+}
+
+/* Each button takes 50% of the container's width */
+.d-flex button {
+    width: 48%; /* Slightly less than 50% for a gap */
+}
+
+/* Primary Button Styling */
+#btnEastDarwin {
+    background-color: #4da6ff; /* Soft sky blue color */
+    color: white;
+}
+
+#btnEastDarwin:hover {
+    background-color: #3388cc; /* Darker blue shade on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Secondary Button Styling */
+#btnGreenwichPark {
+    background-color: #66cc99; /* Soft greenish-blue */
+    color: white;
+}
+
+#btnGreenwichPark:hover {
+    background-color: #4dbd80; /* Darker greenish-blue shade on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Add a little space between the buttons */
+button + button {
+    margin-left: 4%;
+}
 
         .marquee-container {
             display: flex; 
@@ -100,6 +152,7 @@
             border: 2px solid #ddd;
             background-color: rgba(255,255,255,0.8);
             padding: 10px 0;
+            height: 150px;
         }
 
         .marquee-images {
@@ -112,9 +165,8 @@
             cursor: pointer; /* Make images clickable */
         }
 
-        .marquee img {
-            width: 300px;
-            max-height: 300px;
+        .marquee-images img {
+            height: auto;
             margin: 0 10px;
             transition: transform 0.3s ease, filter 0.3s ease;
             cursor: pointer;
@@ -141,25 +193,65 @@
         }
 
         /* Modal Box */
-        .modal-dialog {
-            width: 90%;
-            max-width: none;
-            height: 70vh; /* 70% of viewport height */
-            display: flex;
-            align-items: center;
-        }
-        .modal-content {
-            width: 100%;
-            height: auto;
-        }
-        .modal-body {
-            padding: 0;
-        }
-        #modalImage {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+/* Modal Backdrop */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.8) !important; /* Slightly darker background */
+}
+
+/* Modal Content */
+.modal-content {
+    background: linear-gradient(145deg, #1b1b1b, #0d0d0d); /* Elegant gradient */
+    color: #f5f5f5; /* Soft white text */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8); /* Elevated shadow */
+}
+
+/* Modal Header */
+.modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle separator */
+    padding: 15px 20px;
+}
+
+.modal-header h5.modal-title {
+    font-weight: bold;
+    font-size: 1.5rem; /* Slightly larger title */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* Text shadow for emphasis */
+}
+
+.modal-header .btn-close {
+    filter: brightness(0) invert(1); /* Make the close button white */
+    opacity: 0.7; /* Add some transparency */
+    transition: opacity 0.3s ease;
+}
+
+.modal-header .btn-close:hover {
+    opacity: 1; /* Fully opaque on hover */
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 20px;
+}
+
+.modal-body img {
+    max-height: 80vh; /* Prevent image overflow */
+    object-fit: contain; /* Maintain aspect ratio */
+    border-radius: 8px; /* Smooth corners for the image */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7); /* Image shadow */
+}
+
+/* Modal Transition */
+.modal.fade .modal-dialog {
+    transform: translateY(-50px); /* Slide from above */
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.modal.show .modal-dialog {
+    transform: translateY(0);
+    opacity: 1;
+}
+
 
         /* Footer Area */
         .footer-area {
@@ -356,6 +448,7 @@
                 <div class="row">
                     <div class="col text-center">
                         <h2 class="card-title">About Us</h2>
+                        <br>
                         <p class="card-text">
                             Welcome to <strong>Mitra Renovasi Sentosa</strong>!
                         </p>
@@ -375,27 +468,36 @@
 
         <!-- Marquee Gallery Section -->
         <h1 style="text-align: center;">Gallery</h1>
-
+        <div class="container mt-4 mb-3">
+            <div class="d-flex justify-content-between">
+                <button class="btn" id="btnEastDarwin">East Darwin</button>
+                <button class="btn" id="btnGreenwichPark">Greenwich Park</button>
+            </div>
+        </div>
         <div class="marquee-container">
             <div class="marquee-images">
                 <!-- Images dynamically loaded by JavaScript -->
             </div>
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body text-center">
-                        <img src="" id="modalImage" alt="Selected Image" class="img-fluid">
-                    </div>
-                </div>
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body text-center">
+                <img src="" id="modalImage" alt="Selected Image" class="img-fluid rounded shadow">
             </div>
         </div>
+    </div>
+</div>
+
+
 
         <!-- Contact Section -->
         <div class="section" id="contact">
@@ -519,17 +621,101 @@
         });
 
 
-        async function addingMarqueGallery(loop = 1) {
-            for (let i = 0; i < loop; i++) {
-                const images = [
-                    { src: "assets/gallery/image1.jpg", alt: "Banner Image 1" },
-                    { src: "assets/gallery/image2.jpg", alt: "Banner Image 2" },
-                    { src: "assets/gallery/image3.jpg", alt: "Banner Image 3" },
-                    { src: "assets/gallery/image4.jpg", alt: "Banner Image 4" },
-                    { src: "assets/gallery/image5.jpg", alt: "Banner Image 5" },
-                    { src: "assets/gallery/image6.jpg", alt: "Banner Image 6" },
+        async function addingMarqueGallery(loop = 1, place) {
+            let list_images = [];
+            if(place == "darwin") {
+                list_images = [
+                    { src: "assets/gallery/darwin/1.jpg", alt: "Gallery Darwin 1" },
+                    { src: "assets/gallery/darwin/2.jpg", alt: "Gallery Darwin 2" },
+                    { src: "assets/gallery/darwin/3.jpg", alt: "Gallery Darwin 3" },
+                    { src: "assets/gallery/darwin/4.jpg", alt: "Gallery Darwin 4" },
+                    { src: "assets/gallery/darwin/5.jpg", alt: "Gallery Darwin 5" },
+                    { src: "assets/gallery/darwin/6.jpg", alt: "Gallery Darwin 6" },
+                    { src: "assets/gallery/darwin/7.jpg", alt: "Gallery Darwin 7" },
+                    { src: "assets/gallery/darwin/8.jpg", alt: "Gallery Darwin 8" },
+                    { src: "assets/gallery/darwin/9.jpg", alt: "Gallery Darwin 9" },
+                    { src: "assets/gallery/darwin/10.jpg", alt: "Gallery Darwin 10" },
+                    { src: "assets/gallery/darwin/11.jpg", alt: "Gallery Darwin 11" },
+                    { src: "assets/gallery/darwin/12.jpg", alt: "Gallery Darwin 12" },
+                    { src: "assets/gallery/darwin/13.jpg", alt: "Gallery Darwin 13" },
+                    { src: "assets/gallery/darwin/14.jpg", alt: "Gallery Darwin 14" },
+                    { src: "assets/gallery/darwin/15.jpg", alt: "Gallery Darwin 15" },
+                    { src: "assets/gallery/darwin/16.jpg", alt: "Gallery Darwin 16" },
+                    { src: "assets/gallery/darwin/17.jpg", alt: "Gallery Darwin 17" },
+                    { src: "assets/gallery/darwin/18.jpg", alt: "Gallery Darwin 18" },
+                    { src: "assets/gallery/darwin/19.jpg", alt: "Gallery Darwin 19" },
+                    { src: "assets/gallery/darwin/20.jpg", alt: "Gallery Darwin 20" },
+                    { src: "assets/gallery/darwin/21.jpg", alt: "Gallery Darwin 21" },
+                    { src: "assets/gallery/darwin/22.jpg", alt: "Gallery Darwin 22" },
+                    { src: "assets/gallery/darwin/23.jpg", alt: "Gallery Darwin 23" },
+                    { src: "assets/gallery/darwin/24.jpg", alt: "Gallery Darwin 24" },
+                    { src: "assets/gallery/darwin/25.jpg", alt: "Gallery Darwin 25" },
+                    { src: "assets/gallery/darwin/26.jpg", alt: "Gallery Darwin 26" },
+                    { src: "assets/gallery/darwin/27.jpg", alt: "Gallery Darwin 27" },
+                    { src: "assets/gallery/darwin/28.jpg", alt: "Gallery Darwin 28" },
+                    { src: "assets/gallery/darwin/29.jpg", alt: "Gallery Darwin 29" },
+                    { src: "assets/gallery/darwin/30.jpg", alt: "Gallery Darwin 30" },
+                    { src: "assets/gallery/darwin/31.jpg", alt: "Gallery Darwin 31" },
+                    { src: "assets/gallery/darwin/32.jpg", alt: "Gallery Darwin 32" },
+                    { src: "assets/gallery/darwin/33.jpg", alt: "Gallery Darwin 33" },
+                    { src: "assets/gallery/darwin/34.jpg", alt: "Gallery Darwin 34" },
+                    { src: "assets/gallery/darwin/35.jpg", alt: "Gallery Darwin 35" },
+                    { src: "assets/gallery/darwin/36.jpg", alt: "Gallery Darwin 36" }
                 ];
-                
+            }
+            else if(place == "greenwich") {
+                list_images = [
+                    { src: "assets/gallery/greenwich/1.jpg", alt: "Gallery Greenwich 1" },
+                    { src: "assets/gallery/greenwich/2.jpg", alt: "Gallery Greenwich 2" },
+                    { src: "assets/gallery/greenwich/3.jpg", alt: "Gallery Greenwich 3" },
+                    { src: "assets/gallery/greenwich/4.jpg", alt: "Gallery Greenwich 4" },
+                    { src: "assets/gallery/greenwich/5.jpg", alt: "Gallery Greenwich 5" },
+                    { src: "assets/gallery/greenwich/6.jpg", alt: "Gallery Greenwich 6" },
+                    { src: "assets/gallery/greenwich/7.jpg", alt: "Gallery Greenwich 7" },
+                    { src: "assets/gallery/greenwich/8.jpg", alt: "Gallery Greenwich 8" },
+                    { src: "assets/gallery/greenwich/9.jpg", alt: "Gallery Greenwich 9" },
+                    { src: "assets/gallery/greenwich/10.jpg", alt: "Gallery Greenwich 10" },
+                    { src: "assets/gallery/greenwich/11.jpg", alt: "Gallery Greenwich 11" },
+                    { src: "assets/gallery/greenwich/12.jpg", alt: "Gallery Greenwich 12" },
+                    { src: "assets/gallery/greenwich/13.jpg", alt: "Gallery Greenwich 13" },
+                    { src: "assets/gallery/greenwich/14.jpg", alt: "Gallery Greenwich 14" }
+                ];
+            }
+            
+
+            
+            // Function to check if an image exists
+            async function imageExists(src) {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = () => resolve(true);
+                    img.onerror = () => resolve(false);
+                    img.src = src;
+                });
+            }
+
+            // Filter the images array to remove images that don't exist
+            const images = [];
+            for (let image of list_images) {
+                const exists = await imageExists(image.src);
+                if (exists) {
+                    images.push(image);
+                } else {
+                    console.log(`Image not found: ${image.src}`);
+                }
+            }
+            
+            for (let i = 0; i < loop; i++) {
+                const checkImageExists = async (url) => {
+                    try {
+                        const response = await fetch(url, { method: 'HEAD' });
+                        return response.ok; // Returns `true` if the image exists
+                    } catch (error) {
+                        console.warn(`Error checking image: ${url}`, error);
+                        return false;
+                    }
+                };
+
                 // Populate the marquee dynamically
                 const marquee = document.querySelector('.marquee-images');
                 const imagePromises = images.map(image => {
@@ -538,7 +724,16 @@
                         imgElement.src = image.src;
                         imgElement.alt = image.alt;
                         imgElement.className = "clickable-image";
+
+                        // Handle successful load
                         imgElement.onload = () => resolve(imgElement);
+
+                        // Handle missing image gracefully
+                        imgElement.onerror = () => {
+                            console.warn(`Image not found: ${image.src}`);
+                            resolve(null); // Resolve with `null` to avoid breaking Promise.all
+                        };
+
                         marquee.appendChild(imgElement);
                     });
                 });
@@ -547,8 +742,8 @@
             }
         }
 
-        async function calculateMarqueeWidth() {
-            await addingMarqueGallery(10);
+        async function calculateMarqueeWidth(place) {
+            await addingMarqueGallery(10, place);
 
             // Now calculate total width
             const marqueeContainer = document.querySelector('.marquee-container');
@@ -557,21 +752,21 @@
             
             let totalWidth = 0;
             mImage.forEach(img => {
-                totalWidth += img.width + parseInt(window.getComputedStyle(img).marginRight || "0");
+                if (img) { // Only process valid images
+                    totalWidth += img.width + parseInt(window.getComputedStyle(img).marginRight || "0");
+                }
             });
+
 
             // Set the width of the marquee container to accommodate all images
             marqueeImages.style.width = totalWidth + 'px';
             
             // Add animation for marquee effect
             marqueeImages.style.animationDuration = totalWidth / 100 + 's'; // Adjust speed dynamically
-
-            // Adding more image
-            await addingMarqueGallery();
         }
 
-        async function marqueeClickableImage() {
-            await calculateMarqueeWidth();
+        async function marqueeClickableImage(place) {
+            await calculateMarqueeWidth(place);
             
             // Add click event listeners to all images in the marquee
             const clickableImages = document.querySelectorAll('.clickable-image');
@@ -588,8 +783,23 @@
             });
         }
 
-        marqueeClickableImage();
+        function removeImages() {
+            const marqueeContainer = document.querySelector(".marquee-container");
+            const images = marqueeContainer.querySelectorAll("img");
+            images.forEach(img => img.remove());
+        }
 
+        document.getElementById("btnEastDarwin").addEventListener("click", () => {
+            removeImages();
+            marqueeClickableImage("darwin");
+        });
+
+        document.getElementById("btnGreenwichPark").addEventListener("click", () => {
+            removeImages();
+            marqueeClickableImage("greenwich");
+        });
+
+        marqueeClickableImage("darwin");
     });
 </script>
 
