@@ -74,21 +74,27 @@
         .section.bg-light {
             background-color: #f8f9fa;
         }
-        .carousel-container img {
-            height: 500px;
-            object-fit: cover;
-        }
-        .carousel-caption {
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-        }
-        .map-container {
-            height: 400px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-        }
+
+
+        .carousel {
+    height: 80vh; /* 80% of viewport height */
+}
+.carousel-inner {
+    height: 100%;
+}
+.carousel-item {
+    height: 100%;
+    background-size: 100px;
+    background-position: center;
+}
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+        
 /* General Button Styling */
 button {
     font-family: 'Arial', sans-serif;
@@ -253,6 +259,64 @@ button + button {
 }
 
 
+
+body {
+    background-color: #e0f7fa; /* Page background color */
+}
+.review-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    background-color: #b3e5fc; /* Review card background color */
+}
+.review-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.rating i {
+    color: #f39c12;
+}
+.review-text {
+    font-size: 1rem;
+    color: #555;
+}
+.review-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+.container {
+    max-width: 1200px;
+}
+h2 {
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+/* Centering the map */
+.map-container {
+    display: flex;
+    justify-content: center; /* Centers the iframe horizontally */
+    align-items: center;     /* Centers the iframe vertically */
+    height: 600px;           /* Adjust container height to match iframe height */
+    margin-top: 40px;        /* Add space above the map */
+    overflow: hidden;        /* Ensure no content overflows */
+}
+
+/* Optional: To make the iframe responsive */
+iframe {
+    width: 100%;             /* Ensure the iframe stretches to fit the container */
+    max-width: 1000px;       /* Maximum width for larger screens */
+    height: 600px;           /* Set a fixed height for the iframe */
+}
+
+
         /* Footer Area */
         .footer-area {
             background-color: #003366;
@@ -395,23 +459,23 @@ button + button {
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container">
-            <a class="navbar-brand" href="#">MRS</a>
+            <!-- <a class="navbar-brand" href="#">MRS</a> -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
+                        <a class="nav-link" href="#projects">Services</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#about">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#services">Services</a>
+                        <a class="nav-link" href="#gallery">Gallery</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#gallery">Gallery</a>
+                        <a class="nav-link" href="#reviews">Reviews</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
@@ -423,24 +487,25 @@ button + button {
     <div class="container">
     <div class="col-lg-12">
 
-        <!-- Projects Section -->
-        <div class="section" id="projects">
-            <div class="container">
-                <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner" id="carousel-inner">
-                        <!-- Carousel items will be dynamically added here -->
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
+<!-- Projects Section -->
+<div class="section" id="projects">
+    <div class="container">
+        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" id="carousel-inner">
+                <!-- Carousel items will be dynamically added here -->
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
+    </div>
+</div>
+
 
         <!-- About Section -->
         <div class="section" id="about">
@@ -467,46 +532,60 @@ button + button {
         </div>
 
         <!-- Marquee Gallery Section -->
-        <h1 style="text-align: center;">Gallery</h1>
-        <div class="container mt-4 mb-3">
-            <div class="d-flex justify-content-between">
-                <button class="btn" id="btnEastDarwin">East Darwin</button>
-                <button class="btn" id="btnGreenwichPark">Greenwich Park</button>
+        <div class="section" id="gallery">
+            <h2 style="text-align: center;">Gallery</h2>
+            <div class="container mt-4 mb-3">
+                <div class="d-flex justify-content-between">
+                    <button class="btn" id="btnEastDarwin">East Darwin</button>
+                    <button class="btn" id="btnGreenwichPark">Greenwich Park</button>
+                </div>
+            </div>
+            <div class="marquee-container">
+                <div class="marquee-images">
+                    <!-- Images dynamically loaded by JavaScript -->
+                </div>
+            </div>
+    
+            <!-- Modal -->
+            <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <!-- Modal Body -->
+                        <div class="modal-body text-center">
+                            <img src="" id="modalImage" alt="Selected Image" class="img-fluid rounded shadow">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="marquee-container">
-            <div class="marquee-images">
-                <!-- Images dynamically loaded by JavaScript -->
+        
+        <div class="section" id="reviews">
+            <!-- Customer Reviews -->
+            <div class="container py-5">
+                <h2 class="text-center mb-4">What Our Customers Are Saying</h2>
+                <!-- Reviews Section -->
+                <div class="row" id="reviews-section"></div>
             </div>
         </div>
 
-<!-- Modal -->
-<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <!-- Modal Body -->
-            <div class="modal-body text-center">
-                <img src="" id="modalImage" alt="Selected Image" class="img-fluid rounded shadow">
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-        <!-- Contact Section -->
         <div class="section" id="contact">
             <div class="container">
                 <h2 class="text-center mb-4">Contact Us</h2>
                 <p class="text-center">Email: charlievelyn@gmail.com | Phone: (+62) 877-3836-3800</p>
-                <div id="map" class="map-container"></div>
+                <div id="map" class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.055751350061!2d106.60802917414829!3d-6.256386193732096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fd4888521f07%3A0x90889db8f916c18e!2sNOTARIS%20PPAT%20JERRY%20VALENTINA%20ANDRIANA!5e0!3m2!1sen!2sid!4v1737511126389!5m2!1sen!2sid" 
+                    width="1000" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
             </div>
         </div>
+        
+        
+        
     </div>
 </div>
 
@@ -573,6 +652,7 @@ button + button {
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
 <script>
     // Wait for the document to fully load
     document.addEventListener('DOMContentLoaded', function () {
@@ -590,10 +670,26 @@ button + button {
 
         // Carousel Banner
         const imageCarouselList = [
-            { src: "assets/banner/image1.jpg", alt: "Project 1", title: "Modern Skyscraper", caption: "Redefining urban landscapes." },
-            { src: "assets/banner/image2.jpg", alt: "Project 2", title: "Luxury Villas", caption: "Creating homes for the future." },
-            { src: "assets/banner/image3.jpg", alt: "Project 3", title: "Commercial Complex", caption: "Building spaces for growth." }
-        ];
+    { 
+        src: "assets/banner/image1.jpg", 
+        alt: "Project 1", 
+        title: "Interior Design Excellence", 
+        caption: "Transforming urban landscapes with innovative design." 
+    },
+    { 
+        src: "assets/banner/image2.jpg", 
+        alt: "Project 2", 
+        title: "Future-Ready Renovation", 
+        caption: "Crafting homes that blend modernity and comfort." 
+    },
+    { 
+        src: "assets/banner/image3.jpg", 
+        alt: "Project 3", 
+        title: "Precision in Detail Design", 
+        caption: "Designing spaces that foster creativity and growth." 
+    }
+];
+
 
         // Get the carousel-inner element
         const carouselInner = document.getElementById('carousel-inner');
@@ -800,6 +896,69 @@ button + button {
         });
 
         marqueeClickableImage("darwin");
+        const reviews = [
+    {
+        name: 'Budi Santoso',
+        avatar: 'assets/no-profile.jpg',
+        rating: 5,
+        text: '"Fantastic job on the renovation! The team was professional, and the results exceeded my expectations. Highly recommend."'
+    },
+    {
+        name: 'Ratna Sari',
+        avatar: 'assets/no-profile.jpg',
+        rating: 4.5,
+        text: '"Great experience with their construction service. The project was completed on time, and the quality was excellent!"'
+    },
+    {
+        name: 'Andi Wijaya',
+        avatar: 'assets/no-profile.jpg',
+        rating: 4.5,
+        text: '"I loved the interior design they did for my home. It feels so cozy and stylish now. Amazing work!"'
+    },
+    {
+        name: 'Rudi Hartono',
+        avatar: 'assets/no-profile.jpg',
+        rating: 5,
+        text: '"The team was incredibly friendly and easy to work with. They transformed my old house into a beautiful modern space."'
+    },
+    {
+        name: 'Dewi Kartika',
+        avatar: 'assets/no-profile.jpg',
+        rating: 4.5,
+        text: '"Professional and efficient service. The renovation was done perfectly, and the new design looks great!"'
+    },
+    {
+        name: 'Agus Pratama',
+        avatar: 'assets/no-profile.jpg',
+        rating: 5,
+        text: '"They provided top-notch service for our office renovation. The new design is both functional and aesthetically pleasing."'
+    }
+];
+
+const reviewsSection = document.getElementById('reviews-section');
+
+reviews.forEach(review => {
+    const reviewCard = document.createElement('div');
+    reviewCard.className = 'col-md-4';
+    reviewCard.innerHTML = `
+        <div class="review-card">
+            <div class="d-flex align-items-center mb-3">
+                <img src="${review.avatar}" alt="User Avatar" class="review-avatar">
+                <div>
+                    <h5 class="mb-0">${review.name}</h5>
+                    <div class="rating">
+                        ${'<i class="fas fa-star"></i>'.repeat(Math.floor(review.rating))}
+                        ${review.rating % 1 !== 0 ? '<i class="fas fa-star-half-alt"></i>' : ''}
+                        ${'<i class="far fa-star"></i>'.repeat(5 - Math.ceil(review.rating))}
+                    </div>
+                </div>
+            </div>
+            <p class="review-text">${review.text}</p>
+        </div>
+    `;
+    reviewsSection.appendChild(reviewCard);
+});
+
     });
 </script>
 
